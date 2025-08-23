@@ -10,13 +10,13 @@ const ProfilePage = () => {
 
   const [selectedImg , setSelectedImg] = useState(null)
   const navigate = useNavigate();
-  const [name,setName] = useState(authUser.fullname);
+  const [name,setName] = useState(authUser.fullName);
   const [bio,setBio] = useState(authUser.bio);
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
     if (!selectedImg){
-      await updateProfile({fullname: name, bio});
+      await updateProfile({fullName: name, bio});
       navigate('/')
       return;
     }
@@ -25,7 +25,7 @@ const ProfilePage = () => {
       reader.readAsDataURL(selectedImg);
       reader.onload = async ()=>{
         const base64Image = reader.result;
-        await updateProfile({ProfilePic:base64Image, fullname:name, bio})
+        await updateProfile({profilePic:base64Image, fullName:name, bio})
         navigate('/');
       }
     
@@ -54,7 +54,7 @@ const ProfilePage = () => {
          focus:ring-violet-500' placeholder='Full Name' required />
 
         <textarea onChange={(e)=>setBio(e.target.value)} value={bio}
-         placeholder='wirte profile bio...' required 
+         placeholder='write profile bio...' required 
         className='p-2 border border-gray-500 rounded-md
         focus:outline-none focus:ring-2
         focus:ring-violet-500' rows={4}></textarea>

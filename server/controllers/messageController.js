@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-import Message from "../models/message.js";
+import Message from "../models/Message.js";
 import cloudinary from "../lib/cloudinary.js";
 import { io, userSocketMap } from "../server";
 
@@ -17,7 +17,7 @@ const promises = filteredUsers.map(async (user)=>{
 const messages = await Message.find({senderId: user._id, receiverId:userId, seen: false})
 
 if(messages.length > 0){
-unseenMessages [user._id] = messages.length;
+unseenMessages[user._id] = messages.length;
 }
 
   })
@@ -92,6 +92,7 @@ export const sendMessage = async (req, res) => {
       text,
       image: imageUrl
      })
+     
     // emit the new message to the recievers's socket
     const receiverSocketId = userSocketMap[receiverId]
     if (receiverSocketId){

@@ -7,10 +7,8 @@ receiverId:{type:mongoose.Schema.Types.ObjectId, ref:"user",required: true},
 text: {type:String,},
 image: {type:String,},
 seen:{type:Boolean, default: false}
-}, {timestamps:
+}, {timestamps:true});
 
-true});
+const Message = mongoose.model("Message", messageSchema);
 
-const message = mongoose.model ("Message", messageSchema);
-
-export default message;
+export default Message;

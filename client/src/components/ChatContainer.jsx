@@ -1,15 +1,14 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef , useState,useContext} from 'react'
 import assets, { messagesDummyData } from '../assets/assets'
-import { formatMassageTime } from '../lib/utils'
-import { useContext } from 'react'
+import {formatMessageTime} from '../lib/utils'
 import { ChatContext } from '../../context/ChatContext'
 import { AuthContext } from '../../context/AuthContext'
-import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const ChatContainer = () => {
 
   const {messages, selectedUser, setSelectedUser, sendMessage, 
-    getMessage } = useContext(ChatContext)
+    getMessages } = useContext(ChatContext)
 
     const {authUser, onlineUsers } = useContext(AuthContext)
 
@@ -27,7 +26,7 @@ const ChatContainer = () => {
 
   const handleSendImage = async (e) =>{
     const file = e.target.files[0];
-    if(!file || !file.type.startWith("image/")){
+    if(!file || !file.type.startsWith("image/")){
       toast.error("select an image file")
       return;
     }
@@ -42,7 +41,7 @@ const ChatContainer = () => {
 
   useEffect(()=>{
     if(selectedUser){
-      getMessage(selectedUser._id)
+      getMessages(selectedUser._id)
     }
   },[selectedUser])
 
@@ -88,7 +87,7 @@ const ChatContainer = () => {
                 profilePic || assets.avatar_icon: selectedUser?.profilePic ||
                 assets.avatar_icon} alt="" className='w-7
                 rounded-full' />
-                <p className='text-gray-500'>{formatMassageTime(msg.createdAt) }</p>
+                <p className='text-gray-500'>{formatMessageTime(msg.createdAt) }</p>
               </div>
 
             </div>
